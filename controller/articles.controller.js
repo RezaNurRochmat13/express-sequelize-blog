@@ -1,15 +1,15 @@
 const db = require('../models');
 const Article = db.articles;
 
-exports.findAllArticles() = () => {
+exports.findAllArticles = () => {
 
 };
 
-exports.findArticleById() = () => {
+exports.findArticleById = () => {
 
 };
 
-exports.createArticle() = () => {
+exports.createArticle = () => {
 
 };
 
