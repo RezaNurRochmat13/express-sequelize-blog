@@ -1,0 +1,26 @@
+<!-- <form method="POST" action="/cars" enctype="multipart/form-data"> -->
+<form method="POST" action="/cars">
+    <div>
+        <label>Nama</label>
+        <input name="nama" type="text" />
+    </div>
+    <div>
+        <label>Sewa</label>
+        <input name="sewa" type="number" />
+    </div>
+    <div>
+        <label>Ukuran</label>
+        <select name="ukuran">
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="big">Big</option>
+      </select>
+    </div>
+    <div>
+        <label>Foto</label>
+        <input name="file" type="file" />
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>

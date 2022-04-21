@@ -5,7 +5,10 @@ const articlesController = require('./controller/articles.controller.js');
 const carsController = require('./controller/cars.controller.js');
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
+
 
 app.get('/', (req, res) => {
     res.json({ message: "Index API" });
@@ -19,10 +22,14 @@ app.put('/articles/:id', articlesController.updateArticles);
 app.delete('/articles/:id', articlesController.deleteArticles);
 
 // Controller cars
+// Render view
 app.get('/cars', carsController.getAllCars);
+app.get('/cars/add', carsController.renderCreateCarForm);
+
+// Endpoint logic
 app.post('/cars', carsController.createNewCar);
-app.put('/cars/:id', carsController.updateCar);
-app.delete('/cars/:id', carsController.deleteCar);
+app.get('/cars/update/:id', carsController.updateCar);
+app.get('/cars/delete/:id', carsController.deleteCar);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
