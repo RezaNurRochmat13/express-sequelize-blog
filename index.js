@@ -25,11 +25,12 @@ app.delete('/articles/:id', articlesController.deleteArticles);
 // Render view
 app.get('/cars', carsController.getAllCars);
 app.get('/cars/add', carsController.renderCreateCarForm);
+app.get('/cars/update/:id', carsController.renderUpdateCarForm);
 
 // Endpoint logic
 app.post('/cars', carsController.createNewCar);
-app.get('/cars/update/:id', carsController.updateCar);
-app.get('/cars/delete/:id', carsController.deleteCar);
+app.post('/cars/:id', carsController.updateCar);
+app.delete('/cars/:id', carsController.deleteCar);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
