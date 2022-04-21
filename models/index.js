@@ -36,5 +36,6 @@ db.Sequelize = Sequelize;
 
 // Include model
 db.articles = require('./article.js')(sequelize, Sequelize);
+db.car = require('./car.js')(sequelize, Sequelize);
 
 module.exports = db;
