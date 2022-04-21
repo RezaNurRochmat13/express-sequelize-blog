@@ -1,0 +1,19 @@
+<div>
+    <% data.forEach(result => { %>
+        <div class="content">
+            <p>
+                <%= result.nama %>
+            </p>
+            <p>
+                <%= result.sewa %>
+            </p>
+            <p>
+                <%= result.ukuran %>
+            </p>
+            <p>
+                <img src="<%= result.foto %>" width="150" height="150" />
+            </p>
+        </div>
+
+        <% }) %>
+</div>
