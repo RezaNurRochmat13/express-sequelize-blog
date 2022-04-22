@@ -51,5 +51,12 @@ exports.updateCar = (req, res) => {
 }
 
 exports.deleteCar = (req, res) => {
-
+    Car.findByPk(req.params.id).then(result => {
+        if (result != null) {
+            result.destroy();
+            res.redirect('/cars');
+        } else {
+            res.redirect('/cars');
+        }
+    })
 }

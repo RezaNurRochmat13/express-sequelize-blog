@@ -30,7 +30,7 @@ app.get('/cars/update/:id', carsController.renderUpdateCarForm);
 // Endpoint logic
 app.post('/cars', carsController.createNewCar);
 app.post('/cars/:id', carsController.updateCar);
-app.delete('/cars/:id', carsController.deleteCar);
+app.get('/cars/:id', carsController.deleteCar);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
