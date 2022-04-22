@@ -1,7 +1,6 @@
 const db = require('../models');
 const Car = db.car;
-const multer = require('multer');
-const upload = multer({ dest: '../public/upload' });
+const path = require('path');
 
 exports.getAllCars = (req, res) => {
     Car.findAll().then(result => {
@@ -16,10 +15,15 @@ exports.renderCreateCarForm = (req, res) => {
 }
 
 exports.createNewCar = (req, res) => {
+    console.log(req.fields);
+    console.log(req.files.foto.path);
+
+
     const body = {
-        nama: req.body.nama,
-        sewa: req.body.sewa,
-        ukuran: req.body.ukuran
+        nama: req.fields.nama,
+        sewa: req.fields.sewa,
+        ukuran: req.fields.ukuran,
+        foto: req.files.foto.path
     };
 
     Car.create(body);

@@ -1,18 +1,22 @@
 const express = require('express');
+const formidable = require('express-formidable');
 const app = express();
 const PORT = 8082;
 const articlesController = require('./controller/articles.controller.js');
 const carsController = require('./controller/cars.controller.js');
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(formidable({
+    uploadDir: 'uploads'
+}));
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use('/static', express.static('uploads'));
 
 
 app.get('/', (req, res) => {
     res.json({ message: "Index API" });
 });
+
 
 // Controller articles
 app.get('/articles', articlesController.findAllArticles);
