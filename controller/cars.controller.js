@@ -1,34 +1,26 @@
 const db = require('../models');
 const Car = db.car;
-const path = require('path');
+const cloudinaryConf = require('../config/cloudinary.js');
 
-exports.getAllCars = (req, res) => {
-    Car.findAll().then(result => {
-        res.render('index', {
-            data: result
-        });
-    });
+exports.getAllCars = async(req, res) => {
+    const cars = await Car.findAll();
+
+    res.json({ data: cars });
 }
 
-exports.renderCreateCarForm = (req, res) => {
-    res.render('create', {});
-}
-
-exports.createNewCar = (req, res) => {
-    console.log(req.fields);
-    console.log(req.files.foto.path);
-
+exports.createNewCar = async(req, res) => {
+    const uploadFoto = await cloudinaryConf.uploader.upload(req.files.foto.path);
 
     const body = {
         nama: req.fields.nama,
         sewa: req.fields.sewa,
         ukuran: req.fields.ukuran,
-        foto: req.files.foto.path
+        foto: uploadFoto.secure_url
     };
 
-    Car.create(body);
+    const createCar = await Car.create(body);
 
-    res.redirect('/cars');
+    res.status(201).json({ data: createCar });
 }
 
 exports.renderUpdateCarForm = (req, res) => {
