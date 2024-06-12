@@ -1,52 +1,38 @@
-const db = require('../models');
-const Article = db.articles;
+const ArticleService = require('../service/article.service');
 
-exports.findAllArticles = (request, response) => {
-    Article.findAll().then(result => {
-        response.json({ data: result });
-    });
-};
+class ArticlesController {
+	static async getAllArticles(request, response) {
+		const articles = await ArticleService.findAllArticle();
+		return response.json({ data: articles });
+	}
 
-exports.findArticleById = (req, res) => {
-    Article.findByPk(req.params.id).then(result => {
-        if (result == null) {
-            res.status(404).json({ error: "Data not found" });
-        }
+	static async getArticleById(request, response) {
+		const article = await ArticleService.findArticleById(request.params.id);
 
-        res.json({ data: result });
-    });
-};
+		if (!article) {
+			return response.status(404).json({ error: 'Data not found' });
+		}
 
-exports.createArticle = (req, res) => {
-    Article.create(req.body).then(result => {
-        res.status(201).json({ data: result });
-    });
-};
+		return response.json({ data: article });
+	}
 
-exports.updateArticles = (req, res) => {
-    Article.findByPk(req.params.id).then(result => {
-        if (result) {
-            Article.update(req.body, {
-                where: { id: req.params.id }
-            });
+	static async createArticle(request, response) {
+		const article = await ArticleService.saveArticle(request.body);
+		return response.status(201).json({ data: article });
+	}
 
-            res.json({ data: req.body });
-        } else {
-            res.status(404).json({ error: "Data not found" });
-        }
+	static async updateArticles(request, response) {
+		const article = await ArticleService.updateArticle(
+			request.params.id,
+			request.body
+		);
+		return response.json({ data: article });
+	}
 
-    });
-};
+	static async deleteArticles(request, response) {
+		const article = await ArticleService.deleteArticle(request.params.id);
+		return response.json({ data: article });
+	}
+}
 
-exports.deleteArticles = (req, res) => {
-    Article.findByPk(req.params.id).then(result => {
-        if (result != null) {
-            result.destroy();
-
-            res.status(204).json({});
-        } else {
-            res.status(404).json({ error: "Data not found" });
-        }
-    });
-
-};
+module.exports = ArticlesController;

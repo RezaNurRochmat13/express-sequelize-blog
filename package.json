@@ -1,20 +1,22 @@
 {
-    "name": "express-crud-blog",
-    "version": "1.0.0",
-    "main": "index.js",
-    "license": "MIT",
-    "scripts": {
-        "start": "nodemon index.js"
-    },
-    "dependencies": {
-        "cloudinary": "^1.29.1",
-        "dotenv": "^16.0.0",
-        "ejs": "^3.1.7",
-        "express": "^4.17.3",
-        "express-formidable": "^1.2.0",
-        "nodemon": "^2.0.15",
-        "pg": "^8.7.3",
-        "pg-hstore": "^2.3.4",
-        "sequelize": "^6.19.0"
-    }
+	"name": "express-crud-blog",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "node index",
+		"dev": "nodemon index"
+	},
+	"dependencies": {
+		"cloudinary": "^1.29.1",
+		"dotenv": "^16.0.0",
+		"ejs": "^3.1.7",
+		"express": "^4.17.3",
+		"express-formidable": "^1.2.0",
+		"nodemon": "^2.0.15",
+		"pg": "^8.7.3",
+		"pg-hstore": "^2.3.4",
+		"sequelize": "^6.19.0",
+		"sequelize-cli": "^6.6.2"
+	}
 }
