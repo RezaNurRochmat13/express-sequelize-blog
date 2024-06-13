@@ -1,58 +1,30 @@
-const db = require('../models');
-const Car = db.car;
-const cloudinaryConf = require('../config/cloudinary.js');
+const CarService = require('../service/cars.service');
 
-exports.getAllCars = async(req, res) => {
-    const cars = await Car.findAll();
+class CarsController {
+	static getAllCars = async (req, res) => {
+		const cars = await CarService.findAllCar();
+		res.json({ data: cars });
+	};
 
-    res.json({ data: cars });
+	static getCarById = async (req, res) => {
+		const car = await CarService.findCarById(req.params.id);
+		res.json({ data: car });
+	};
+
+	static createNewCar = async (req, res) => {
+		const car = await CarService.saveCar(req);
+		res.status(201).json({ data: car });
+	};
+
+	static updateCar = async (req, res) => {
+		const car = await CarService.updateCar(req.params.id, req);
+		res.json({ data: car });
+	};
+
+	static deleteCar = async (req, res) => {
+		const car = await CarService.deleteCar(req.params.id);
+		res.json({ data: car });
+	};
 }
 
-exports.createNewCar = async(req, res) => {
-    const uploadFoto = await cloudinaryConf.uploader.upload(req.files.foto.path);
-
-    const body = {
-        nama: req.fields.nama,
-        sewa: req.fields.sewa,
-        ukuran: req.fields.ukuran,
-        foto: uploadFoto.secure_url
-    };
-
-    const createCar = await Car.create(body);
-
-    res.status(201).json({ data: createCar });
-}
-
-exports.renderUpdateCarForm = (req, res) => {
-    Car.findByPk(req.params.id).then(result => {
-        res.render('update', {
-            id: result.id,
-            nama: result.nama,
-            sewa: result.sewa
-        });
-    });
-
-}
-
-exports.updateCar = (req, res) => {
-    const updateBody = {
-        nama: req.body.nama,
-        sewa: req.body.sewa,
-        ukuran: req.body.ukuran
-    };
-
-    Car.update(updateBody, { where: { id: req.params.id } });
-
-    res.redirect('/cars');
-}
-
-exports.deleteCar = (req, res) => {
-    Car.findByPk(req.params.id).then(result => {
-        if (result != null) {
-            result.destroy();
-            res.redirect('/cars');
-        } else {
-            res.redirect('/cars');
-        }
-    })
-}
+module.exports = CarsController;
